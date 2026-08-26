@@ -22,6 +22,10 @@ const isEdit = computed(() => !!route.params.id)
 const rules: FormRules = {
   name: [{ required: true, message: 'Majburiy maydon', trigger: 'blur' }],
   username: [{ required: true, message: 'Majburiy maydon', trigger: 'blur' }],
+  email: [
+    { required: true, message: 'Majburiy maydon', trigger: 'blur' },
+    { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Email formati noto'g'ri", trigger: 'blur' },
+  ],
 }
 
 const pageTitle = computed(() => (isEdit.value ? 'Foydalanuvchini tahrirlash' : "Foydalanuvchi qo'shish"))
@@ -33,7 +37,7 @@ const pageBreadcrumbs = computed(() => [
 
 async function handleSave() {
   if (isEdit.value) {
-    await updateItem(item.value)
+    await updateItem(String(route.params.id), item.value)
   } else {
     await createItem(item.value)
   }
@@ -71,6 +75,9 @@ function handleValidateButtonClick(e: MouseEvent) {
         </NFormItem>
         <NFormItem required path="username" label="Login">
           <NInput v-model:value="item.username" placeholder="Login" />
+        </NFormItem>
+        <NFormItem required path="email" label="Email">
+          <NInput v-model:value="item.email" placeholder="Email" />
         </NFormItem>
         <NFormItem path="phone" label="Telefon">
           <NInput v-model:value="item.phone" placeholder="Telefon" />

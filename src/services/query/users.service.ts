@@ -10,44 +10,31 @@ const LIST = `query ($options: PageQueryOptions) {
 }`
 
 const GET_BY_ID = `query ($id: ID!) {
-  user(id: $id) { id name username phone website }
+  user(id: $id) { name username email phone website }
 }`
 
 const CREATE = `mutation ($input: CreateUserInput!) {
-  user: createUser(input: $input) { id name username phone website }
+  user: createUser(input: $input) { name username email phone website }
 }`
 
 const UPDATE = `mutation ($id: ID!, $input: UpdateUserInput!) {
-  user: updateUser(id: $id, input: $input) { id name username phone website }
+  user: updateUser(id: $id, input: $input) { name username email phone website }
 }`
 
 const DELETE = `mutation ($id: ID!) {
   deleteUser(id: $id)
 }`
 
-function toOptions(filter: IUserFilter) {
-  return {
-    search: filter.search ? { q: filter.search } : undefined,
-    paginate: { page: filter.page, limit: filter.pageSize },
-  }
-}
-
-function toInput(data: IUser) {
-  // graphqlzero CreateUserInput.email majburiy — formada yo'q, shuning uchun login'dan yasaladi
-  return {
-    name: data.name,
-    username: data.username,
-    email: `${data.username}@example.com`,
-    phone: data.phone,
-    website: data.website,
-  }
-}
-
 const UsersService = {
   async GetList(filter: IUserFilter): Promise<GetListResponse<IUserItem>> {
+    const options = {
+      search: filter.search ? { q: filter.search } : undefined,
+      paginate: { page: filter.page, limit: filter.pageSize },
+    }
+
     const data = await apiService.request<{
       users: { data: IUserItem[]; meta: { totalCount: number } }
-    }>(LIST, { options: toOptions(filter) })
+    }>(LIST, { options })
 
     return { rows: data.users.data, total: data.users.meta.totalCount }
   },
@@ -58,14 +45,14 @@ const UsersService = {
     return data.user
   },
 
-  async Create(data: IUser): Promise<IUser> {
-    const res = await apiService.request<{ user: IUser }>(CREATE, { input: toInput(data) })
+  async Create(input: IUser): Promise<IUser> {
+    const res = await apiService.request<{ user: IUser }>(CREATE, { input })
 
     return res.user
   },
 
-  async Update(data: IUser): Promise<IUser> {
-    const res = await apiService.request<{ user: IUser }>(UPDATE, { id: data.id, input: toInput(data) })
+  async Update(id: string, input: IUser): Promise<IUser> {
+    const res = await apiService.request<{ user: IUser }>(UPDATE, { id, input })
 
     return res.user
   },

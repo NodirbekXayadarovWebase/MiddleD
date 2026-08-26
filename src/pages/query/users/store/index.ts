@@ -12,7 +12,7 @@ export const useUsersStore = defineStore('usersStore', () => {
   const filter = ref<IUserFilter>(defaultFilter())
 
   function emptyItem(): IUser {
-    return { id: '', name: '', username: '', phone: '', website: '' }
+    return { name: '', username: '', email: '', phone: '', website: '' }
   }
 
   const item = ref<IUser>(emptyItem())
@@ -59,10 +59,10 @@ export const useUsersStore = defineStore('usersStore', () => {
     }
   }
 
-  async function updateItem(data: IUser) {
+  async function updateItem(id: string, data: IUser) {
     loading.value = true
     try {
-      await UsersService.Update(data)
+      await UsersService.Update(id, data)
       message.success('Muvaffaqiyatli yangilandi')
     } finally {
       loading.value = false
