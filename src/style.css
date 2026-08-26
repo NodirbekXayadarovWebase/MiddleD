@@ -1,5 +1,38 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
 
-@utility btn {
-  @apply rounded border border-gray-300 px-2 py-1 text-sm hover:bg-gray-100 disabled:opacity-40;
+@custom-variant 2xl (@media (max-width: 1535px));
+@custom-variant xl (@media (max-width: 1279px));
+@custom-variant lg (@media (max-width: 1023px));
+@custom-variant md (@media (max-width: 767px));
+@custom-variant sm (@media (max-width: 639px));
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+}
+
+:root {
+  --primary-color: #1f80f0; /* design-ok */
+  --header-height: 72px;
+
+  --shell-header-bg: #f9fafc; /* design-ok */
+  --shell-sider-bg: #f9fafc; /* design-ok */
+  --shell-content-bg: #f5f6fa; /* design-ok */
+
+  --w-surface: #f9fafc; /* design-ok */
+  --w-border: #e0e0e0; /* design-ok */
+  --w-text-secondary: #666666; /* design-ok */
+}
+
+.logo {
+  @apply flex h-[var(--header-height)] items-center justify-center gap-2 border-b border-black/5;
+}
+
+.logo h2 {
+  @apply text-[20px] font-semibold tracking-tight whitespace-nowrap;
 }

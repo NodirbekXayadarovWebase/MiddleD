@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import Gql from './components/Gql.vue'
+import { NConfigProvider, NDialogProvider, NGlobalStyle, NMessageProvider } from 'naive-ui'
+import { useThemeOverrides } from '@/composables/useThemeOverrides'
+
+const { overrides } = useThemeOverrides()
 </script>
 
 <template>
-  <main class="mx-auto max-w-3xl space-y-4 p-6">
-    <h1 class="text-xl font-semibold">GraphQL</h1>
-    <Gql />
-  </main>
+  <NConfigProvider :theme-overrides="overrides">
+    <NGlobalStyle />
+    <NMessageProvider>
+      <NDialogProvider>
+        <RouterView />
+      </NDialogProvider>
+    </NMessageProvider>
+  </NConfigProvider>
 </template>
