@@ -44,7 +44,7 @@ function handleUpdate(key: string) {
       :collapsed-icon-size="22"
       :options="menuOptions"
       :value="activeMenu"
-      :default-expanded-keys="['query']"
+      :default-expanded-keys="['task1', 'task2']"
       @update:value="handleUpdate"
     />
   </NLayoutSider>

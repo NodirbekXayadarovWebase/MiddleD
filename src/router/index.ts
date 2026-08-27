@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
+import piniaRoutes from '@/pages/pinia/router'
 import queryRoutes from './query'
 
 const routes: RouteRecordRaw[] = [
@@ -11,6 +12,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       // Module routes
       ...queryRoutes,
+      ...piniaRoutes,
     ],
   },
   {
