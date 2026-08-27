@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AlertCircleOutline, RefreshOutline } from '@vicons/ionicons5'
-import { NButton, NCard, NIcon, NTabPane, NTabs } from 'naive-ui'
+import { NButton, NCard, NIcon } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import PageHeader from '@/components/PageHeader.vue'
@@ -78,36 +78,34 @@ settingsStore.$subscribe(readSaved)
       </NCard>
     </div>
 
-    <NTabs type="line" default-value="list" class="mt-4">
-      <NTabPane name="list" tab="Ro'yxat va $subscribe">
+    <div class="mt-4 grid grid-cols-3 gap-4 lg:grid-cols-1">
+      <div class="col-span-2 lg:col-span-1">
         <PostsTable />
-      </NTabPane>
+      </div>
 
-      <NTabPane name="persist" tab="persist plugin">
-        <NCard title="persist plugin — localStorage">
-          <template #header-extra>
-            <NButton size="small" quaternary @click="clearSaved">Tozalash</NButton>
-          </template>
+      <NCard title="persist plugin — localStorage">
+        <template #header-extra>
+          <NButton size="small" quaternary @click="clearSaved">Tozalash</NButton>
+        </template>
 
-          <div class="space-y-4 text-xs">
-            <div>
-              <p class="mb-1 font-medium">{{ POSTS_PERSIST_KEY }}</p>
-              <pre class="overflow-x-auto rounded bg-black/5 p-2">{{ saved.posts }}</pre>
-              <p class="mt-1 text-gray-500">paths: ['filter'] — faqat filter saqlanadi</p>
-            </div>
-
-            <div>
-              <p class="mb-1 font-medium">{{ SETTINGS_PERSIST_KEY }}</p>
-              <pre class="overflow-x-auto rounded bg-black/5 p-2">{{ saved.settings }}</pre>
-              <p class="mt-1 text-gray-500">persist: true — butun state saqlanadi</p>
-            </div>
+        <div class="space-y-4 text-xs">
+          <div>
+            <p class="mb-1 font-medium">{{ POSTS_PERSIST_KEY }}</p>
+            <pre class="overflow-x-auto rounded bg-black/5 p-2">{{ saved.posts }}</pre>
+            <p class="mt-1 text-gray-500">paths: ['filter'] — faqat filter saqlanadi</p>
           </div>
-        </NCard>
-      </NTabPane>
 
-      <NTabPane name="log" tab="Action loglari">
-        <ActivityLog />
-      </NTabPane>
-    </NTabs>
+          <div>
+            <p class="mb-1 font-medium">{{ SETTINGS_PERSIST_KEY }}</p>
+            <pre class="overflow-x-auto rounded bg-black/5 p-2">{{ saved.settings }}</pre>
+            <p class="mt-1 text-gray-500">persist: true — butun state saqlanadi</p>
+          </div>
+        </div>
+      </NCard>
+    </div>
+
+    <div class="mt-4">
+      <ActivityLog />
+    </div>
   </div>
 </template>
