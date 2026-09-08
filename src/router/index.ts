@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
+import performanceRoutes from '@/pages/performance/router'
 import piniaRoutes from '@/pages/pinia/router'
 import queryRoutes from './query'
 
@@ -13,6 +14,7 @@ const routes: RouteRecordRaw[] = [
       // Module routes
       ...queryRoutes,
       ...piniaRoutes,
+      ...performanceRoutes,
     ],
   },
   {
