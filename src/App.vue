@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NConfigProvider, NDialogProvider, NGlobalStyle, NMessageProvider } from 'naive-ui'
+import { NConfigProvider, NGlobalStyle, NMessageProvider } from 'naive-ui'
 import { useThemeOverrides } from '@/composables/useThemeOverrides'
 
 const { overrides } = useThemeOverrides()
@@ -9,9 +9,7 @@ const { overrides } = useThemeOverrides()
   <NConfigProvider :theme-overrides="overrides">
     <NGlobalStyle />
     <NMessageProvider>
-      <NDialogProvider>
-        <RouterView />
-      </NDialogProvider>
+      <RouterView />
     </NMessageProvider>
   </NConfigProvider>
 </template>
