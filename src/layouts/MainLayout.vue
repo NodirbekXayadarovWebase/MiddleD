@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { NLayout, NLayoutContent, NSpin } from 'naive-ui'
+import { NLayout, NLayoutContent, NSpin, useMessage } from 'naive-ui'
 import { ref } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppSidebar from '@/components/layout/AppSidebar.vue'
+import { setMessage } from '@/utils/message'
+
+setMessage(useMessage())
 
 const collapsed = ref(false)
 </script>

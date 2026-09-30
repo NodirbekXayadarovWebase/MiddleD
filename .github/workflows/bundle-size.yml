@@ -1,0 +1,28 @@
+name: Bundle size
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # Fails the job when over budget; table goes to the run's summary page.
+      - run: npm run size
+      # Treemap report, also when over budget — shows what grew.
+      - run: npm run analyze
+        if: always()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bundle-report
+          path: dist/stats.html
